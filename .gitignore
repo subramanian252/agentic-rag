@@ -1,0 +1,28 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Frontend and editors
+node_modules/
+.vscode/
+.idea/
+
+# OS and generated files
+.DS_Store
+Thumbs.db
+*.log
+dist/
+build/
