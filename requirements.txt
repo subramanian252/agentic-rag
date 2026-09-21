@@ -11,3 +11,4 @@ langchain-tavily
 langgraph
 pinecone
 pypdf
+fonttools

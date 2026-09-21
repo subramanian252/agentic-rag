@@ -18,6 +18,7 @@ api = FastAPI(
     redoc_url=None,
     openapi_url=None,
 )
+app = api
 api.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 templates = Jinja2Templates(directory=FRONTEND_DIR)
 
