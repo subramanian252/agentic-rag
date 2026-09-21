@@ -587,3 +587,68 @@ body { overflow-x:hidden; }
   .mini-route { gap:6px; }
   .mini-route span { padding:6px 8px; font-size:10px; }
 }
+/* LangGraph path map */
+.pipeline .section-heading { max-width:760px; }
+.graph-shell { position:relative; padding:32px; border:3px solid var(--ink); border-radius:28px 18px 30px 20px; background:rgba(255,250,240,.78); box-shadow:9px 10px 0 var(--ink); }
+.graph-shell::before { content:""; position:absolute; inset:13px; border:2px dashed rgba(36,59,49,.13); border-radius:20px 12px 22px 14px; pointer-events:none; }
+.graph-shell > * { position:relative; z-index:1; }
+.graph-legend { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px 18px; margin-bottom:28px; color:var(--muted); font-size:11px; font-weight:900; letter-spacing:.08em; }
+.graph-legend span { display:flex; align-items:center; gap:7px; }
+.graph-legend i { display:block; width:14px; height:14px; border:2px solid var(--ink); }
+.legend-action { border-radius:4px; background:var(--white); }
+.legend-decision { transform:rotate(45deg); border-radius:3px; background:var(--pop-soft); }
+.legend-loop { border-radius:50%!important; background:var(--card-blue); }
+.graph-track { display:grid; grid-template-columns:minmax(0,1fr) 36px minmax(0,1.15fr) 36px minmax(0,1.3fr); align-items:stretch; gap:8px; }
+.compact-track { grid-template-columns:minmax(0,1fr) 48px minmax(0,1.35fr); max-width:760px; margin-inline:auto; }
+.graph-node { display:flex; min-height:150px; flex-direction:column; justify-content:center; padding:22px; border:3px solid var(--ink); border-radius:18px 13px 20px 12px; background:var(--white); box-shadow:5px 5px 0 var(--ink); }
+.graph-node.decision { background:var(--pop-soft); }
+.node-kicker { margin-bottom:7px; color:var(--pop); font-size:10px; font-weight:900; letter-spacing:.16em; }
+.graph-node b { font:700 21px/1.1 "Fredoka",sans-serif; }
+.graph-node small { margin-top:9px; color:var(--muted); font-size:12px; font-weight:700; line-height:1.5; }
+.graph-arrow { display:grid; place-items:center; color:var(--pop); font:700 31px "Patrick Hand",cursive; }
+.graph-branches { display:grid; gap:22px; margin-top:34px; }
+.two-paths { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.three-paths { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.branch-card { min-width:0; padding:25px; border:3px solid var(--ink); border-radius:19px 28px 17px 23px; box-shadow:6px 7px 0 var(--ink); }
+.branch-card.good-path { background:var(--card-green); }
+.branch-card.correction-path { background:var(--card-blue); }
+.branch-card.direct-path { background:var(--pop-soft); }
+.branch-tag { display:inline-block; margin-bottom:11px; padding:6px 10px; border:2px solid var(--ink); border-radius:999px; background:var(--white); font-size:9px; font-weight:900; letter-spacing:.12em; }
+.branch-card h3,.decision-band h3,.loop-card h3 { margin:0 0 10px; font-size:23px; line-height:1.1; }
+.branch-card p,.decision-band p,.loop-card p { margin:8px 0 0; color:var(--muted); font-size:13px; font-weight:700; line-height:1.55; }
+.path-pills { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:16px 0 4px; }
+.path-pills span { padding:7px 10px; border:2px solid var(--ink); border-radius:9px; background:var(--white); font-size:11px; font-weight:900; }
+.path-pills b { color:var(--pop); font:25px "Patrick Hand",cursive; }
+.graph-merge { display:flex; align-items:center; gap:14px; margin:34px 0 18px; color:var(--muted); font-size:9px; font-weight:900; letter-spacing:.16em; }
+.graph-merge::before,.graph-merge::after { content:""; height:2px; flex:1; background:repeating-linear-gradient(90deg,var(--ink) 0 7px,transparent 7px 13px); opacity:.28; }
+.finish-track { grid-template-columns:minmax(0,1.4fr) 36px minmax(0,1fr) 36px minmax(0,.72fr); }
+.end-node { color:var(--white); background:var(--ink); }
+.end-node .node-kicker { color:var(--pop-soft); }
+.end-node small { color:rgba(255,255,255,.75); }
+.decision-band { margin-top:34px; padding:28px; text-align:center; border:3px solid var(--ink); border-radius:25px 16px 27px 18px; background:var(--card-blue); box-shadow:6px 7px 0 var(--ink); }
+.outcome-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:20px; text-align:left; }
+.outcome-grid.three-outcomes { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.outcome-grid>div { padding:18px; border:2px solid var(--ink); border-radius:13px; background:var(--white); }
+.outcome-grid b { font:700 17px "Fredoka",sans-serif; }
+.reflection-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin-top:34px; }
+.loop-card { padding:27px; border:3px solid var(--ink); border-radius:19px 28px 17px 23px; background:var(--card-green); box-shadow:6px 7px 0 var(--ink); }
+.loop-card:nth-child(2) { background:var(--pop-soft); }
+.loop-limit { margin-top:19px; padding:10px 12px; border:2px dashed var(--ink); border-radius:10px; background:var(--white); font-size:11px; font-weight:900; }
+.self-finish { grid-template-columns:minmax(0,1.3fr) 42px minmax(0,.8fr); max-width:760px; margin:34px auto 0; }
+.loop-ribbon { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:9px; margin-top:30px; padding:17px; border:3px dashed var(--ink); border-radius:17px; background:var(--pop-soft); }
+.loop-ribbon span,.loop-ribbon small { font-size:10px; font-weight:900; letter-spacing:.12em; }
+.loop-ribbon b { padding:7px 10px; border:2px solid var(--ink); border-radius:8px; background:var(--white); font-size:11px; }
+.loop-ribbon i { color:var(--pop); font:normal 24px "Patrick Hand",cursive; }
+.agent-finish { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:34px; }
+.agent-finish .graph-node { min-height:165px; }
+@media (max-width:1000px) { .three-paths,.outcome-grid.three-outcomes { grid-template-columns:1fr; } .agent-finish { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) {
+  .graph-shell { padding:25px 20px; }
+  .graph-track,.compact-track,.finish-track,.self-finish { grid-template-columns:1fr; max-width:none; }
+  .graph-arrow { min-height:28px; transform:rotate(90deg); }
+  .two-paths,.reflection-grid,.outcome-grid { grid-template-columns:1fr; }
+  .graph-node { min-height:0; }
+  .agent-finish { grid-template-columns:1fr; }
+  .graph-legend { justify-content:flex-start; }
+}
+@media (max-width:560px) { .graph-shell { padding:22px 16px; box-shadow:6px 7px 0 var(--ink); } .branch-card,.loop-card,.decision-band { padding:21px 18px; } .graph-node { padding:20px 18px; } }
