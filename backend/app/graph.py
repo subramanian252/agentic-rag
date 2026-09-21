@@ -1,11 +1,12 @@
 """Agentic RAG graph adapted directly from notebooks/agentic_rag.ipynb."""
 
 import os
+import time
 from pathlib import Path
 from typing import Any, Literal, TypedDict
 
 from dotenv import load_dotenv
-from langchain_community.document_loaders import WebBaseLoader
+from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -19,13 +20,6 @@ from pydantic import BaseModel
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(PROJECT_ROOT / ".env")
 
-loader = WebBaseLoader(
-    "https://docs.langchain.com/oss/python/langgraph/agentic-rag#build-a-custom-rag-agent-with-langgraph"
-)
-data = loader.load()
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=900, chunk_overlap=100)
-chunks = text_splitter.split_documents(data)
-
 embeddings = OpenAIEmbeddings(
     api_key=os.environ["OPENROUTER_API_KEY"],
     base_url="https://openrouter.ai/api/v1",
@@ -37,10 +31,27 @@ if not pc.has_index("agenticrag"):
         dimension=1536,
         metric="cosine",
         spec=ServerlessSpec(cloud="aws", region="us-east-1"),
+        timeout=30,
     )
-index = pc.Index("agenticrag")
-vector_store_pine = PineconeVectorStore(index=index, embedding=embeddings)
-vector_store_pine.add_documents(chunks)
+
+    while not pc.describe_index("agenticrag").status["ready"]:
+        time.sleep(1)
+
+    index = pc.Index("agenticrag")
+    vector_store_pine = PineconeVectorStore(index=index, embedding=embeddings)
+    loader = DirectoryLoader(
+        str(PROJECT_ROOT / "backend" / "data"),
+        glob="*.pdf",
+        loader_cls=PyPDFLoader,
+    )
+    data = loader.load()
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=900, chunk_overlap=100)
+    chunks = text_splitter.split_documents(data)
+    vector_store_pine.add_documents(chunks)
+else:
+    index = pc.Index('agenticrag')
+    vector_store_pine = PineconeVectorStore(index=index, embedding=embeddings)
+
 retriever = vector_store_pine.as_retriever(search_kwargs={"k": 6})
 
 llm = ChatOpenAI(
@@ -79,7 +90,7 @@ You are a routing classifier.
 
 Choose exactly one route:
 
-"retriever" for the indexed LangChain, LangGraph, custom RAG, retrieval, grading, and query-rewriting documentation.
+"retriever" for machine-learning questions that may be answered by the indexed local PDF collection.
 "websearch" for current, changing, recent, or external information.
 "generate_answer" for general knowledge that requires neither source.
 

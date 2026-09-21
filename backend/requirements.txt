@@ -10,4 +10,4 @@ langchain-pinecone
 langchain-tavily
 langgraph
 pinecone
-beautifulsoup4
+pypdf
